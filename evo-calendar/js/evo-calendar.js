@@ -682,17 +682,21 @@
     }
     // v1.0.0 - Remove single event to event list
     EvoCalendar.prototype.removeEventList = function(event_data) {
-        var _ = this, markup;
+        var _ = this, markup = '';
         var eventListEl = _.$elements.eventEl.find('.event-list');
         if (eventListEl.find('[data-event-index="'+event_data+'"]').length === 0) return; // event not in active events
         eventListEl.find('[data-event-index="'+event_data+'"]').remove();
         if (eventListEl.find('[data-event-index]').length === 0) {
             eventListEl.empty();
+            
+            markup = '<div class="event-empty">';
             if (_.$active.date === _.$current.date) {
                 markup += '<p>'+_.initials.dates[_.options.language].noEventForToday+'</p>';
             } else {
                 markup += '<p>'+_.initials.dates[_.options.language].noEventForThisDay+'</p>';
             }
+            markup += '</div>';
+
             eventListEl.append(markup)
         }
     }
